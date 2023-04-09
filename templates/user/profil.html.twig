@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+
+
+    <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;margin-top: 2%">
+
+        <div style="display: flex; flex-direction: row; border: solid black; padding: 1%;border-radius: 5px; background-color: white">
+            <img src="https://img.icons8.com/external-creatype-outline-colourcreatype/100/null/external-account-essential-ui-v4-creatype-outline-colourcreatype.png" style="object-fit: contain" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ user.name }}</h5>
+                <p class="card-text">{{ user.experience }}</p>
+                <p class="card-text">Membre depuis le : {{ user.DateInscription|date('m/d/y') }}</p>
+                <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar" style="width: {{ user.levelCompletion }}%" aria-valuenow="{{ user.levelCompletion }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
+            </div>
+        </div>
+        <div style="display: flex; flex-direction: column; justify-content: center;align-items: center;width: 100%;gap: 50px;margin-top: 5%">
+            <div style="display: flex; justify-content: center">
+                <H3>Les 5 dernieres citations</H3>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center;align-items: center; gap: 20px">
+                {% for quote in quotes %}
+                    <div class="" style="display: flex;  justify-content: center; border: solid; width:25em;height:20em; flex-direction: column; padding: 2%; border-radius: 5px;box-shadow: 10px 5px 5px #FBAB7E;background-color: white">
+                        <div>
+                            <p class="" style="margin:0">{{ quote.content }}</p>
+                            <p class="text-muted"> — {{ quote.meta }}</p>
+                            <p class="text-muted fs-6">{{ quote.user.name }}</p>
+                        </div>
+                        <div style="display: flex;flex-direction: row;flex-wrap: wrap; gap: 5px; justify-content: space-between" >
+                            <div>
+                                {% if is_granted('QUOTE_EDIT', quote) or  is_granted('QUOTE_DELETE', quote) %}
+                                    <div class="row"><a href="{{ path('edit_quotes', {'id': quote.id  }) }}" class="editQuote">Modifier</a></div>
+                                    <div class="row"><a href="{{ path('delete_quotes', {'id': quote.id  }) }}" class="deleteQuote">Supprimer</a></div>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <div class="row"><a href="{{ path('profil_id', {'id': quote.user.id  }) }}" class="editQuote">Profil</a></div>
+                            </div>
+                        </div>
+                        {% if quote.category is not null %}
+                            <a href="{{ path('app_category_show', {'id': quote.category.id}) }}"  class="btn btn-outline-primary">{{ quote.category.name }}</a>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-transparent text-danger fs-4" > Aucun résultat trouvé </li>
+                    </ul>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

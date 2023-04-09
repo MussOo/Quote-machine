@@ -1,0 +1,75 @@
+variables:
+  # Use fast compression for artifacts, resulting in larger archives
+  ARTIFACT_COMPRESSION_LEVEL: "fast"
+
+  # Use no compression for caches
+  CACHE_COMPRESSION_LEVEL: "fastest"
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - vendor/
+
+
+stages:
+  - build
+  - code
+  - test
+
+install: # Installation des dépendances du projet
+  stage: build
+  script:
+    - composer install
+  tags:
+    - php81
+    - composer
+
+code-fixer: # Vérification du code PHP
+  stage: code
+  dependencies:
+    - install
+  script:
+    - composer cs
+  tags:
+    - php81
+    - composer
+
+phpunit: # Chargement des fixtures et exécution des tests
+  stage: test
+  dependencies:
+    - install
+  script:
+    - php bin/phpunit
+  tags:
+    - php81
+    - composer
+
+test: # test avec sqlite
+  stage: test
+  dependencies:
+    - install
+  script:
+    - composer test
+  tags:
+    - php81
+    - composer
+
+lint:twig: # Vérification du Twig
+  stage: code
+  dependencies:
+    - install
+  script:
+    - bin/console lint:twig templates
+  tags:
+    - php81
+    - composer
+
+lint:yaml: # Vérification du YAML
+  stage: code
+  dependencies:
+    - install
+  script:
+    - bin/console lint:yaml config
+  tags:
+    - php81
+    - composer 

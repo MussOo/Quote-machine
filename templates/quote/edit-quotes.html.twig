@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello QuoteController!{% endblock %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1 class="h1">EDIT QUOTES</h1>
+
+    <div class="mb-3">
+        {{ form_start(form) }}
+        <div class="mb-3">
+            {{ form_label(form.Content) }}
+            {{ form_widget(form.Content) }}
+        </div>
+        <div class="mb-3">
+            {{ form_label(form.Meta) }}
+            {{ form_widget(form.Meta) }}
+        </div>
+        {{ form_errors(form) }}
+        {{ form_end(form) }}
+    </div>
+
+
+
+</div>
+{% endblock %}

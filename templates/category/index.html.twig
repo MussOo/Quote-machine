@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block body %}
+    <div style="display: flex;flex-direction:column;justify-content: center;align-items: center;width: 80%;margin: auto">
+        <div style="margin: 5%">
+            <h1>Category</h1>
+        </div>
+        <div style="width: 70%;border: solid black; padding: 2%;border-radius: 5px;">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for category in categories %}
+                    <tr>
+                        <td>{{ category.id }}</td>
+                        <td>{{ category.name }}</td>
+                        <td>
+                            <a href="{{ path('app_category_show', {'id': category.id}) }}" class="btn btn-outline-primary">show</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('app_category_edit', {'id': category.id}) }}" class="btn btn-outline-secondary">edit</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">Aucune categorie trouvé</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_category_new') }}" class="btn btn-outline-success">Create new</a>
+    {% endif %}
+
+{% endblock %}
