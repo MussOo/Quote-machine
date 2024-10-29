@@ -1,29 +1,113 @@
-## CONFIGURATION PROJET ##
+## Description
 
-- Installation du projet
+**Quote-machine** est une application web de gestion de citations construite avec **Symfony** (PHP). Elle permet aux utilisateurs d'interagir avec des citations en fonction de leurs rôles. Les administrateurs peuvent créer, modifier et supprimer des citations, tandis que les utilisateurs lambda peuvent les lire et les liker.
 
-       composer install
+## Configuration du Projet
 
+### Prérequis
 
-- Configuration de la base de données
-    Aller dans le fichier .env.local et modifier les paramètres de connexion à la base de données
+- PHP 7.4 ou supérieur
+- Composer
+- Symfony CLI
+- Serveur de base de données MySQL
 
-    DATABASE_URL="mysql://[USER]:[PASSWORD]@[ADRESSE_IP]:[PORTS]/[Nom_BDD]?serverVersion=5.7"
-    Exemple :
-       DATABASE_URL="mysql://root:root@127.0.0.1:3306/Quote-machine?serverVersion=5.7"
+### Installation du projet
 
-
-- Création de la base de données, exécution des migrations et chargement des fixtures
+1. **Cloner le dépôt** :
     
-       composer cs
-
-- Lancement du serveur de développement
+    ```bash
+    bash
+    Copier le code
+    git clone https://github.com/votre-utilisateur/quote-machine.git
+    cd quote-machine
     
-        symfony server:start
-
-- Script Composer :
+    ```
     
-    php-cs-fixer:
-        composer cs
-    lancement de la base de donnée:
-        composer db
+2. **Installer les dépendances** :
+    
+    ```bash
+    bash
+    Copier le code
+    composer install
+    
+    ```
+    
+3. **Configurer la base de données** :
+    - Ouvrir le fichier `.env.local` et modifier les paramètres de connexion à la base de données en fonction de votre configuration :
+        
+        ```
+        env
+        Copier le code
+        DATABASE_URL="mysql://[USER]:[PASSWORD]@[ADRESSE_IP]:[PORT]/[Nom_BDD]?serverVersion=5.7"
+        
+        ```
+        
+    - Exemple :
+        
+        ```
+        env
+        Copier le code
+        DATABASE_URL="mysql://root:root@127.0.0.1:3306/quote_machine?serverVersion=5.7"
+        
+        ```
+        
+4. **Création de la base de données, exécution des migrations et chargement des fixtures** :
+    
+    ```bash
+    bash
+    Copier le code
+    composer db
+    
+    ```
+    
+5. **Lancer le serveur de développement** :
+    
+    ```bash
+    bash
+    Copier le code
+    symfony server:start
+    
+    ```
+    
+
+### Commandes utiles
+
+- **php-cs-fixer** : Vérifie et corrige la qualité du code selon les standards PHP.
+    
+    ```bash
+    bash
+    Copier le code
+    composer cs
+    
+    ```
+    
+- **Création et mise à jour de la base de données** :
+    
+    ```bash
+    bash
+    Copier le code
+    composer db
+    
+    ```
+    
+
+## Fonctionnalités
+
+- **Authentification et rôles utilisateurs** : Les utilisateurs peuvent s'inscrire, se connecter, et se voir attribuer un rôle (Admin ou Utilisateur lambda).
+- **Gestion des citations pour les Admins** :
+    - Créer, modifier et supprimer des citations.
+- **Interactions pour les Utilisateurs lambda** :
+    - Parcourir les citations et les "liker".
+- **Filtrage des citations** : Trier les citations par popularité (nombre de likes) et par date de publication.
+
+## Améliorations futures
+
+Les améliorations envisagées incluent :
+
+- **Système de tags** : Permettre le classement des citations par thèmes.
+- **Partage sur les réseaux sociaux** : Intégrer un bouton de partage des citations.
+- **Notifications** : Informer les utilisateurs de nouvelles citations ajoutées par les admins.
+
+## Auteur
+
+Ce projet a été réalisé par **Mustapha**. Pour toute question ou suggestion, n'hésitez pas à me contacter !
